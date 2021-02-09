@@ -12,54 +12,12 @@ import pickle
 import os
 import sys
 import requests
-import time
-import playsound
-import speech_recognition as sr
-from gtts import gTTS
 
 
 nltk.download("punkt")
 
-def speak(text):
-    tts = gTTS(text=text, lang="en")
-    filename = "voice.mp3"
-    tts.save(filename)
-    playsound.playsound(filename)
-
-def get_audio():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-        said = ""
-        
-        try:
-            said = r.recognize_google(audio)
-            print(said)
-        except Exception as e:
-            print("Exception: " + str(e))
-
-    return said
-
-text = get_audio()
-
-def function():
-    print('test')
-
-if "hello" in text:
-    with open("intents.json") as file:
-        data = json.load(file)
-    ptint('Mental Health')
-
-elif "bye" in text:
-    with open('intent.json') as file:
-        data = json.load(file)
-    print('Convo Talk')
-
-elif "water" in text:
-    function()
-
-else:
-    return
+with open("intents.json") as file:
+    data = json.load(file)
 
 try:
     with open("data.pickle", "rb") as f:
@@ -146,7 +104,11 @@ def bag_of_words(s, words):
 
     return numpy.array(bag)
 
-
+import os
+import time
+import playsound
+import speech_recognition as sr
+from gtts import gTTS
 
 def chat():
     print("Start Talking With the Bot! (type quit to stop)")      
